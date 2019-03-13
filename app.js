@@ -1,17 +1,16 @@
-var createError = require('http-errors');
+//var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+//var cookieParser = require('cookie-parser');
+//var logger = require('morgan');
 const mongoose = require('mongoose');
 
 var indexRouter = require('./api/routes/index');
 var modulesRouter = require('./api/routes/modules');
-var usersRouter = require('./api/routes/users');
 var hbs = require('express-handlebars');
-var expressValidator = require('express-validator');
-var session = require('express-session');
-var flash = require('express-flash');
+//var expressValidator = require('express-validator');
+//var session = require('express-session');
+//var flash = require('express-flash');
 
 var app = express();
 
@@ -24,18 +23,18 @@ app.set('views', path.join(__dirname, '/views/layouts'));
 app.set('view engine', 'hbs');
 
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(expressValidator());  
-app.use(cookieParser());
+//app.use(expressValidator());  
+//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-  secret: 'dasfdsgaersd',
-  resave: false,
-  saveUninitialized: true
-}))
-app.use(flash());
+// app.use(session({
+//   secret: 'dasfdsgaersd',
+//   resave: false,
+//   saveUninitialized: true
+// }))
+// app.use(flash());
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -48,7 +47,7 @@ app.use(function(req, res, next) {
 });
 app.use('/', indexRouter);
 app.use('/modules', modulesRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
