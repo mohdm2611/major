@@ -1,0 +1,50 @@
+<div class="bodybox">
+    <div class="container-fluid overview-header">
+        <h1>STECK</h1>
+        <h5>{{user}}</h5>
+    </div>
+    <!-- <div class="container sidebar" id="demo">
+        <ul class="list-group">
+            <li>Overview</li>
+            <li>Statistics</li>
+            <li>Devices</li>
+            <li>Logout</li>
+        </ul>
+    </div> -->
+    <div id="mySidenav" class="sidenav">
+        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+        <a href="/overview">Overview</a>
+        <a href="/statistics">Statistics</a>
+        <a href="/devices">Devices</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="container main" ng-app="MyApp" ng-controller="MyController">
+        <div class="inner">
+            <div class="headings">
+                <h3>Devices</h3>
+                <h6>Manage all your devices</h6>
+            </div>
+            <div class="devices">
+                <table class="table borderless">
+                    <thead>
+                        <tr>
+                            <th>Module ID</th>
+                            <th>Mapped To</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="m in modules">
+                        <tr>
+                            <td ng-bind="m.moduleID"></td>
+                            <td ng-bind="m.mappedTo"></td>
+                            <td ng-bind="m.type"></td>
+                            <td class="mod-status-devices" ng-class="calculateStyle(m.status)" ng-style="calculateStyle(m.status)"
+                             ng-bind="m.status"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
