@@ -126,12 +126,12 @@ router.get('/active', (req, res, next) => {
 });
 
 
-router.post('/insert', (req, res, next) => {
+router.get('/insert', (req, res, next) => {
     const esp8266one = new Esp8266one({
         _id: new mongoose.Types.ObjectId(),
-        moduleID: req.body.moduleID,
-        mappedTo: req.body.mappedTo,
-        value: req.body.value
+        moduleID: req.query.moduleID,
+        mappedTo: req.query.mappedTo,
+        value: req.query.value
     });
     esp8266one.save()
     .then(result => {
