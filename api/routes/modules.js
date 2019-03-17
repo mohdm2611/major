@@ -160,6 +160,36 @@ router.get('/espmodule', (req, res, next) => {
 });
 
 
+router.get('/esp', (req, res, next) => {   
+    Esp8266one.find()
+    .select('moduleID mappedTo value datetime')
+    .exec()
+    .then(docs => {
+        const response = {
+            count: docs.length,
+            modules: docs.map(doc => {
+                return {
+                    moduleID: doc.moduleID,
+                    id: doc._id,
+                    mappedTo: doc.mappedTo,
+                    value: doc.value,
+                    datetime: doc.datetime,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:8000/modules/' + doc._id
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
+});
+
+
 router.get('/insert', (req, res, next) => {
     var currentdate = new Date(); 
     var dtime =  currentdate.getFullYear() + "-"
