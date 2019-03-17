@@ -191,19 +191,13 @@ router.get('/esp', (req, res, next) => {
 
 
 router.get('/insert', (req, res, next) => {
-    var currentdate = new Date(); 
-    var dtime =  currentdate.getFullYear() + "-"
-            + (currentdate.getMonth()+1)  + "-" 
-            + currentdate.getDate()  + " "
-            + currentdate.getHours() + ":"  
-            + currentdate.getMinutes() + ":" 
-            + currentdate.getSeconds();
+    var ts = Math.round((new Date()).getTime() / 1000);
     const esp8266one = new Esp8266one({
         _id: new mongoose.Types.ObjectId(),
         moduleID: req.query.moduleID,
         mappedTo: req.query.mappedTo,
         value: req.query.value,
-        datetime: dtime
+        datetime: ts
     });
     esp8266one.save()
     .then(result => {
@@ -387,16 +381,16 @@ router.post('/overflow', function(req, res, next){
 //     })
 // })
 
-// router.delete('/:moduleId', (req, res, next) => {
-//     const id = req.params.moduleId;
-//     Moduledata.remove({ _id: id}).exec()
-//     .then(result => {
-//         res.status(200).json({result});
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         res.status(500).json({error: err});
-//     });
-// }); 
+router.delete('/esp', (req, res, next) => {
+    Esp8266one.deleteMany({})
+    .exec()
+    .then(result => {
+        res.status(200).json({result});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
+}); 
 
 module.exports = router;
