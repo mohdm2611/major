@@ -253,7 +253,7 @@ router.post('/made', (req, res, next) => {
 });
 
 
-router.post('/overflow', function(req, res, next){
+router.get('/overflow', function(req, res, next){
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var myDate = new Date(date);
     var currentdate = new Date(); 
@@ -265,11 +265,11 @@ router.post('/overflow', function(req, res, next){
             + currentdate.getSeconds();
     const modulesoverflow = new Modulesoverflow({
         _id: new mongoose.Types.ObjectId(),
-        moduleID: req.body.moduleID,
+        moduleID: req.query.moduleID,
         time: datetime,
-        value: req.body.value,
-        lat: req.body.lat,
-        lng: req.body.lng
+        value: req.query.value,
+        lat: req.query.lat,
+        lng: req.query.lng
     });
     modulesoverflow.save()
     .then(result => {
