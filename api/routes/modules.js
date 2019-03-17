@@ -101,7 +101,7 @@ router.post('/check', (req, res, next) =>{
 
 router.get('/active', (req, res, next) => {   
     Modulesactive.find()
-    .select('moduleID mappedTo type')
+    .select('moduleID mappedTo type status')
     .exec()
     .then(docs => {
         const response = {
@@ -110,6 +110,40 @@ router.get('/active', (req, res, next) => {
                 return {
                     moduleID: doc.moduleID,
                     id: doc._id,
+                    mappedTo: doc.mappedTo,
+                    type: doc.type,
+                    status: doc.status,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:8000/modules/' + doc._id
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
+});
+
+
+router.get('/espmodule', (req, res, next) => {   
+    Esp8266one.find()
+    .sort({$natural: -1})
+    .limit(1)
+    .exec()
+    .then(docs => {
+        const response = {
+            count: docs.length,
+            modules: docs.map(doc => {
+                return {
+                    moduleID: doc.moduleID,
+                    id: doc._id,
+                    mappedTo: doc.mappedTo,
+                    value: doc.value,
+                    datetime: doc.datetime,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:8000/modules/' + doc._id
@@ -127,11 +161,19 @@ router.get('/active', (req, res, next) => {
 
 
 router.get('/insert', (req, res, next) => {
+    var currentdate = new Date(); 
+    var dtime =  currentdate.getFullYear() + "-"
+            + (currentdate.getMonth()+1)  + "-" 
+            + currentdate.getDate()  + " "
+            + currentdate.getHours() + ":"  
+            + currentdate.getMinutes() + ":" 
+            + currentdate.getSeconds();
     const esp8266one = new Esp8266one({
         _id: new mongoose.Types.ObjectId(),
         moduleID: req.query.moduleID,
         mappedTo: req.query.mappedTo,
-        value: req.query.value
+        value: req.query.value,
+        datetime: dtime
     });
     esp8266one.save()
     .then(result => {
@@ -142,6 +184,7 @@ router.get('/insert', (req, res, next) => {
                 moduleID: result.moduleID,
                 mappedTo: result.mappedTo,
                 value: result.value,
+                datetime: result.datetime,
                 id: result._id,
                 request: {
                     type: 'GET',
@@ -189,7 +232,6 @@ router.post('/made', (req, res, next) => {
 router.post('/overflow', function(req, res, next){
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     var myDate = new Date(date);
-    console.log(myDate.toString());
     var currentdate = new Date(); 
     var datetime =  currentdate.getFullYear() + "-"
             + (currentdate.getMonth()+1)  + "-" 
@@ -197,12 +239,13 @@ router.post('/overflow', function(req, res, next){
             + currentdate.getHours() + ":"  
             + currentdate.getMinutes() + ":" 
             + currentdate.getSeconds();
-    console.log(datetime);
     const modulesoverflow = new Modulesoverflow({
         _id: new mongoose.Types.ObjectId(),
         moduleID: req.body.moduleID,
         time: datetime,
-        value: req.body.value
+        value: req.body.value,
+        lat: req.body.lat,
+        lng: req.body.lng
     });
     modulesoverflow.save()
     .then(result => {
@@ -211,16 +254,37 @@ router.post('/overflow', function(req, res, next){
             message : "Created module",
             modules : {
                 moduleID: result.moduleID,
+                time: datetime,
+                value: result.value,
+                lat: result.lat,
+                lng: result.lng,
                 request: {
                     type: 'GET',
                     url: 'http://localhost:8000/modules/' + result._id
                 }
             }
         });
+        // var string = encodeURIComponent('1');
+        // res.redirect('/map/?val=' + string);
     }).catch(err => {
         console.log(err);
         res.status(500).json({error: err});
     });
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+    var overflowvalue = req.body.value;
+    if(overflowvalue<=15){
+        const accountSid = 'AC66dead53c973552acb3620dce467cdb9';
+        const authToken = 'c45a57ff20582c121a6bd1a2f2df7673';
+        const client = require('twilio')(accountSid, authToken);
+        client.messages
+        .create({
+            body: 'There is a Sewage overflow at https://www.google.com/maps/search/?api=1&query='+lat+','+lng ,
+            from: '+15312081934',
+            to: '+918686427332'
+        })
+        .then(message => console.log(message.sid));
+    }
 });
 
 

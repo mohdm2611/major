@@ -12,7 +12,15 @@ var userData =  db.get('users');
 router.get('/', function(req, res, next) {
   res.render('index',{title:"Steck"});
 });
-
+router.get('/map', function(req, res, next) {
+  var passedVariable = req.query.val;
+  var flag;
+  if(passedVariable == 1){
+    flag = 1;
+    console.log(flag+"flag value");
+  }
+  res.render('map',{value: flag});
+});
 
 router.get('/get-data', function(req, res, next){
   //var resulArray = [];
