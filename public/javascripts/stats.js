@@ -68,9 +68,9 @@ class mday {
   }
 
 }
-var currUts = new Date("2019-03-16 14:34:00").getTime()
-var currMonth = new Date("2019-03-16 14:34:00").getMonth();
-var currYear = new Date("2019-03-16 14:34:00").getFullYear()
+var currUts = new Date("2019-03-18 14:34:00").getTime()
+var currMonth = new Date("2019-03-18 14:34:00").getMonth();
+var currYear = new Date("2019-03-18 14:34:00").getFullYear()
 //**** !imp */
 
 
@@ -79,7 +79,7 @@ function averageDays() {
   var avg = 0;
   d = currUts;
   d = Math.round(d / oneDay);
-  console.log(d);
+  // console.log(d);
   var i = 7;
   offset = 0;
 
@@ -88,10 +88,10 @@ function averageDays() {
     --d;
     avg = 0;
     var x = objPeriodDay[d]
-    console.log(x);
+    // console.log(x);
     if (x) {
       for (j in x) {
-        avg += x[j].value;
+        avg += parseInt(x[j].value,10);
       }
       avg /= x.length;
       avgday.push(new mday(new Date(currUts - (oneDay * offset)), avg));
@@ -112,15 +112,15 @@ function averageMonths() {
   i= currMonth;
   while (i >= 0) {
   for (d in json) {
-    date = json[d].date * 1000;
-    // console.log(new Date(date));
+    date = json[d].datetime * 1000;
+    console.log(new Date(date));
     if (i === new Date(date).getMonth() && currYear === new Date(date).getFullYear()) {
       ++count;
-      // console.log(new Date(date).getMonth());
-      // console.log(json[d].value + "  --  " + new Date(date));
+       console.log(new Date(date).getMonth());
+       console.log(json[d].value + "  --  " + new Date(date));
       typeof( json[d].value);
 
-      avg = avg + json[d].value ;
+      avg = avg + parseInt(json[d].value, 10) ;
      
     }
   }
