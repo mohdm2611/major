@@ -197,7 +197,7 @@ router.get('/insert', (req, res, next) => {
         moduleID: req.query.moduleID,
         mappedTo: req.query.mappedTo,
         value: req.query.value,
-        datetime: ts
+        datetime: req.query.ts
     });
     esp8266one.save()
     .then(result => {

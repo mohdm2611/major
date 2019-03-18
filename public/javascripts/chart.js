@@ -16,7 +16,7 @@ $(function getData(){
             if(value>max){
                 value = max;
             }
-            console.log(value);
+            //console.log(value);
             $('#moduleid').text(id);
             $('#value').text(value);
             if (value <= (max / 3))

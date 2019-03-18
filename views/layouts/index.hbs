@@ -1,10 +1,8 @@
-<div class="container-fluid">
+  <div class="container-fluid">
     <div class="heading ">
       <div class="heading--logo">
 
-        <img src="/img/steck.png"
-             class="img-responsive"
-             alt="steck">
+        <img src="./img/steck.png" class="img-responsive" alt="steck">
 
       </div>
     </div>
@@ -23,55 +21,20 @@
     <div class="card__container">
       <div class="overview" id="overview">
         <div class="overview--heading flex-column">
-                            <h2>overview</h2>
-                            <p>all modules in one place</p>
-                        </div>
-        <div class="overview__top flex-row">
-          {{!-- <div class="overview__card flex-column">
-            <div class="overview__card--title flex-column">
-              <div class="chead">module -I</div>
-              <a href="#mid"> midak4700</a>
-            </div>
-            <div class="chart__container flex-row">
-              <div class="info flex-column">
-                <div class="status">Status : <span>ACTIVE</span> </div>
-                <div class="length">Length : <span>27cms</span> </div>
-                <div class="value">value : <span>18cms</span> </div>
-              </div>
-              <div class="theChart">
-                <div class="thath"></div>
-              </div>
-            </div>
-          </div> --}}
-          {{!-- <div class="overview__card flex-column">
-            <div class="overview__card--title flex-column">
-              <div class="chead">module -I</div>
-              <a href="#mid"> midak4700</a>
-            </div>
-            <div class="chart__container flex-row">
-              <div class="info flex-column">
-                <div class="status">Status : <span>ACTIVE</span> </div>
-                <div class="length">Length : <span>27cms</span> </div>
-                <div class="value">value : <span>18cms</span> </div>
-              </div>
-              <div class="theChart">
-                <div class="thath"></div>
-              </div>
-            </div>
-          </div> --}}
-          <!-- <div class="overview__card">&nbsp;</div> -->
+          <h2>overview</h2>
+          <p>all modules in one place</p>
         </div>
-        <div class="overview__bottom flex-row">
+        <div class="overview__top flex-row">
           <div class="overview__card flex-column">
             <div class="overview__card--title flex-column">
-              <div class="chead">Module - I</div>
+              <div class="chead">module -I</div>
               <a href="#mid" id="moduleid"></a>
             </div>
             <div class="chart__container flex-row">
               <div class="info flex-column">
                 <div class="status">Status : <span>ACTIVE</span> </div>
-                <div class="length" id="length">Length : <span>60cms</span> </div>
-                <div class="value">value : <span id="value"></span>cms</div>
+                <div class="length">Length : <span>27cms</span> </div>
+                <div class="value">value : <span id="value">18cms</span> </div>
               </div>
               <div class="theChart">
                 <canvas id="module2"></canvas>
@@ -80,7 +43,7 @@
           </div>
           <div class="overview__card flex-column">
             <div class="overview__card--title flex-column">
-              <div class="chead">Module - II</div>
+              <div class="chead">module -I</div>
               <a href="#mid"> midak4700</a>
             </div>
             <div class="chart__container flex-row">
@@ -96,43 +59,103 @@
           </div>
           <!-- <div class="overview__card">&nbsp;</div> -->
         </div>
+        {{!-- <div class="overview__bottom flex-row">
+          <div class="overview__card flex-column">
+            <div class="overview__card--title flex-column">
+              <div class="chead">module -II</div>
+              <a href="#mid"> midak4700</a>
+            </div>
+            <div class="chart__container flex-row">
+              <div class="info flex-column">
+                <div class="status">Status : <span>ACTIVE</span> </div>
+                <div class="length">Length : <span>27cms</span> </div>
+                <div class="value">value : <span>18cms</span> </div>
+              </div>
+              <div class="theChart">
+                <canvas id="module2"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="overview__card flex-column">
+            <div class="overview__card--title flex-column">
+              <div class="chead">module -I</div>
+              <a href="#mid"> midak4700</a>
+            </div>
+            <div class="chart__container flex-row">
+              <div class="info flex-column">
+                <div class="status">Status : <span>ACTIVE</span> </div>
+                <div class="length">Length : <span>27cms</span> </div>
+                <div class="value">value : <span>18cms</span> </div>
+              </div>
+              <div class="theChart">
+                <div class="thath"></div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="overview__card">&nbsp;</div> -->
+        </div> --}}
       </div>
       <div class="stats flex-column" id="stats">
         <div class="cont--heading flex-column">
           <h2>statistics</h2>
           <p>take a look at your recent usage in one place</p>
         </div>
-        <div class="stats--top flex-row">
-            <div class="lchart--cont">
-                
-            </div>
-            <div class="lchart--cont">
-                
-            </div>
-            <div class="lchart--cont">
-                
-            </div>
+        {{!-- <div class="stats--top flex-row">
+          <div class="lchart--cont">
+            &nbsp;
+          </div>
+          <div class="lchart--cont">
+            &nbsp;
+          </div>
+          <div class="lchart--cont">
+            &nbsp;
+          </div>
+        </div> --}}
+        <div class="stats--bottom flex-row">
+          <div class="lchart--cont flex-column">
+            <div class="menu--cont flex-row">
+              <div class="dropdown">
+                <label class="dropdown--label">
+                  <input type="checkbox" class="dropdown--checkbox" />
+                  <span class="dropdown--text">
+                    Order By
+                    <span class="dropdown--arrow"></span>
+                  </span>
 
+                  <div class="dropdown--list">
+                    <ul>
+                      <li><a href="#monthly" onclick="adddata()">Monthly</a></li>
+                      <li><a href="#weekly" onclick="thisWeek()">Weekly</a></li>
+                      {{!-- <li><a href="">Yearly</a></li> --}}
+                    </ul>
+                  </div>
+
+
+                </label>
+              </div>
+            </div>
+            <canvas id="myChart"></canvas>
+          </div>
         </div>
       </div>
       <div class="devices" id="devices">
-          <div class="cont--heading flex-column">
-              <h2>devices</h2>
-              <p>all your devices in one place</p>
-            </div>
+        <div class="cont--heading flex-column">
+          <h2>devices</h2>
+          <p>all your devices in one place</p>
+        </div>
 
-            <div class="devices--cont flex-column">
-              <table class="devices--cont__table">
-                <tr>
-                  <th>module id</th>
-                  <th>mapped to</th>
-                  <th>type</th>
-                  <th >status</th>
-                </tr>
-              </table>
-            </div>
+        <div class="devices--cont flex-column">
+          <table class="devices--cont__table">
+            <tr>`
+              <th>module id</th>
+              <th>mapped to</th>
+              <th>type</th>
+              <th>status</th>
+            </tr>
+          </table>
+        </div>
         <!-- edit -->
       </div>
     </div>
 
-  </div>
+</div>

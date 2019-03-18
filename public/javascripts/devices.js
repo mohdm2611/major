@@ -61,5 +61,6 @@ function genDevices(){
     xhttp.send();
 }
 
-$(document).ready(genDevices);
-
+$(document).ready(
+    genDevices
+);
