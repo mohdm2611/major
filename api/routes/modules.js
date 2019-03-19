@@ -294,9 +294,9 @@ router.get('/overflow', function(req, res, next){
         console.log(err);
         res.status(500).json({error: err});
     });
-    var lat = req.body.lat;
-    var lng = req.body.lng;
-    var overflowvalue = req.body.value;
+    var lat = req.query.lat;
+    var lng = req.query.lng;
+    var overflowvalue = req.query.value;
     if(overflowvalue<=15){
         const accountSid = 'AC66dead53c973552acb3620dce467cdb9';
         const authToken = 'c45a57ff20582c121a6bd1a2f2df7673';
@@ -307,7 +307,10 @@ router.get('/overflow', function(req, res, next){
             from: '+15312081934',
             to: '+918686427332'
         })
-        .then(message => console.log(message.sid));
+        .then(message => console.log(message.sid))
+        .catch(err => {
+            console.log(err);
+        });
     }
 });
 
