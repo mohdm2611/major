@@ -12,7 +12,7 @@ xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 					devices = JSON.parse(this.responseText);  
 					count = devices.count; 
-					console.log(devices.modules);
+					//console.log(devices.modules);
 					json = devices.modules;
 		 }
 };
@@ -113,11 +113,11 @@ function averageMonths() {
   while (i >= 0) {
   for (d in json) {
     date = json[d].datetime * 1000;
-    console.log(new Date(date));
+    //console.log(new Date(date));
     if (i === new Date(date).getMonth() && currYear === new Date(date).getFullYear()) {
       ++count;
-       console.log(new Date(date).getMonth());
-       console.log(json[d].value + "  --  " + new Date(date));
+       //console.log(new Date(date).getMonth());
+       //console.log(json[d].value + "  --  " + new Date(date));
       typeof( json[d].value);
 
       avg = avg + parseInt(json[d].value, 10) ;

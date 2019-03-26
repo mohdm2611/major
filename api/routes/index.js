@@ -1,16 +1,17 @@
 var express = require('express');
 var router = express.Router();
-//var mongo = require('mongodb').MongoClient;
-//var objectId = require('mongodb').ObjectID;
-//var assert = require('assert');
-//var url = 'mongodb://localhost:27017/test';
 
-var db = require('monk')('localhost:27017/test');
-var userData =  db.get('users');
-
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index',{title:"Steck"});
+  res.render('login');
+});
+router.get('/index',function(req, res, next){
+  res.render('index');
+});
+router.get('/uerror',function(req, res, next){
+  res.render('login',{message:"Invalid Username"});
+});
+router.get('/perror',function(req, res, next){
+  res.render('login',{message:"Invalid Password"});
 });
 router.get('/map', function(req, res, next) {
   var passedVariable = req.query.val;

@@ -1,0 +1,41 @@
+<header class="header">
+    
+        <form action="http://pacific-garden-17395.herokuapp.com/modules/login" method="POST">
+            
+        <div class="hero">
+
+   <div class="hero__content">
+                <div class="heading__large">Welcome to<br/>
+                    <span class="heading__large heading__bold">Steck</span>
+                </div>
+                
+                <h2 class="heading__secondary">
+                        
+                </h2>
+            </div>
+
+            <div class="hero__login">
+                <h1 class="heading__primary u-margin-bottom-med">Login</h1>
+                <div class="u-margin-bottom-med">
+                    <div class="input__label ">User ID</div>
+                    <input type="text" name="email" id="email" class="input__field" required placeholder="enter your user ID">
+                </div>
+                <div class="u-margin-bottom-med">
+                        <div class="input__label ">password</div>
+                        <input type="password" name="password" id="password" class="input__field" required placeholder="enter your password">
+                </div>
+                <div class="btn__container u-margin-bottom-med">
+                    <button type="submit"  class="btn btn-blue">Login <i class="material-icons md-8">arrow_right</i></button>
+                </div>
+                <p class="error-message">{{message}}</p> 
+
+                       
+                </div>
+            </div>
+
+
+         
+            
+        </div>
+        </form>
+    </header>

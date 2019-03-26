@@ -39,27 +39,43 @@ function viewStats(){
     document.getElementById("stats").style.display = "block";
 }
 var devices;
+var count;
 function genDevices(){
-    var count;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            devices = JSON.parse(this.responseText);  
-            count = devices.count; 
-            // console.log(devices.modules);
-            for(var i=0;i<count;i++){
-                document.querySelector('.devices--cont__table tbody').innerHTML+=`<tr>
-                <td>`+devices.modules[i].moduleID+`</td>
-                <td>`+devices.modules[i].mappedTo+`</td>
-                <td>`+devices.modules[i].type+`</td>
-                <td class="status">`+devices.modules[i].status+`</td>
-              </tr>`;
-            }
-       }
-    };
-    xhttp.open("GET", "modules/active", true);
-    xhttp.send();
+    // var xhttp = new XMLHttpRequest();
+    // xhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         devices = JSON.parse(this.responseText);  
+    //         count = devices.count; 
+    //         // console.log(devices.modules);
+    //         for(var i=0;i<count;i++){
+    //             document.querySelector('.devices--cont__table tbody').innerHTML+=`<tr>
+    //             <td>`+devices.modules[i].moduleID+`</td>
+    //             <td>`+devices.modules[i].mappedTo+`</td>
+    //             <td>`+devices.modules[i].type+`</td>
+    //             <td class="status">`+devices.modules[i].status+`</td>
+    //           </tr>`;
+    //         }
+    //    }
+    // };
+    // xhttp.open("GET", "modules/active", true);
+    // xhttp.send();
+    fetch('http://pacific-garden-17395.herokuapp.com/modules/active')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    count = myJson.count;
+    for(var i=0;i<count;i++){
+        document.querySelector('.devices--cont__table tbody').innerHTML+=`<tr>
+        <td>`+myJson.modules[i].moduleID+`</td>
+        <td>`+myJson.modules[i].mappedTo+`</td>
+        <td>`+myJson.modules[i].type+`</td>
+        <td class="status">`+myJson.modules[i].status+`</td>
+        </tr>`;
+    }
+  });
 }
+
 
 $(document).ready(
     genDevices

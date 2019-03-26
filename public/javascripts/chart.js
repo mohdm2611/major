@@ -18,7 +18,7 @@ $(function getData(){
             }
             //console.log(value);
             $('#moduleid').text(id);
-            $('#value').text(value);
+            $('#value').text(value+"cms");
             if (value <= (max / 3))
             myColor = green;
             else if (value > max / 3 && value <= 2 * max / 3)
@@ -82,7 +82,7 @@ $(function getData(){
             });
        }
     };
-    xhttp.open("GET", "modules/espmodule", true);
+    xhttp.open("GET", "https://pacific-garden-17395.herokuapp.com/modules/espmodule", true);
     xhttp.send();
     window.setTimeout(getData, 3000);
 });
