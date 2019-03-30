@@ -51,12 +51,11 @@ router.post("/signup", (req, res, next) => {
   });
 
   router.post("/login", (req, res, next) => {
-    console.log(req.body.email, req.body.password);
     User.find({ email: req.body.email })
       .exec()
       .then(user => {
         if (user.length < 1) {
-          return res.redirect('/uerror');
+          return res.redirect('/?message=Invalid Username!!');
         }
         bcrypt.compare(req.body.password, user[0].password, (err, result) => {
           if (err) {
@@ -73,9 +72,10 @@ router.post("/signup", (req, res, next) => {
             //       expiresIn: "1h"
             //   }
             // );
-            return res.redirect('/index');
+            req.session.userId = req.body.email;
+            return res.redirect('/modules/index');
           }
-          res.redirect('/perror');
+          res.redirect('/?message=Invalid Password!!');
         });
       })
       .catch(err => {
@@ -86,6 +86,19 @@ router.post("/signup", (req, res, next) => {
       });
   });
 
+
+router.get('/logout', (req,res, next) => {
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+          if(err) {
+            return next(err);
+          } else {
+            return res.redirect('/');
+          }
+        });
+      }
+});
 
 
 router.post('/check', (req, res, next) =>{
@@ -475,5 +488,25 @@ router.delete('/esp', (req, res, next) => {
         res.status(500).json({error: err});
     });
 }); 
+
+router.get('/index',function(req, res, next){
+    if(req.session&&req.session.userId){
+      res.render('index');
+    }
+    else{
+      console.log("Cannot view this page");
+      res.redirect('/?message=You are not logged in!!');
+    }
+  });
+
+//   function requiresLogin(req, res, next) {
+//     if (req.session && req.session.userId) {
+//       return next();
+//     } else {
+//       var err = new Error('You must be logged in to view this page.');
+//       err.status = 401;
+//       return next(err);
+//     }
+//   }
 
 module.exports = router;

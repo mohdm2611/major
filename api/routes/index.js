@@ -1,18 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+
+
+
 router.get('/', function(req, res, next) {
-  res.render('login');
+  var query = req.query.message;
+  res.render('login',{message: query});
 });
-router.get('/index',function(req, res, next){
-  res.render('index');
-});
-router.get('/uerror',function(req, res, next){
-  res.render('login',{message:"Invalid Username"});
-});
-router.get('/perror',function(req, res, next){
-  res.render('login',{message:"Invalid Password"});
-});
+
 router.get('/map', function(req, res, next) {
   var passedVariable = req.query.val;
   var flag;

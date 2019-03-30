@@ -9,7 +9,7 @@ var indexRouter = require('./api/routes/index');
 var modulesRouter = require('./api/routes/modules');
 var hbs = require('express-handlebars');
 //var expressValidator = require('express-validator');
-//var session = require('express-session');
+var session = require('express-session');
 //var flash = require('express-flash');
 
 var app = express();
@@ -29,16 +29,17 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(expressValidator());  
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(session({
-//   secret: 'dasfdsgaersd',
-//   resave: false,
-//   saveUninitialized: true
-// }))
+app.use(session({
+  secret: 'dasfdsgaersd',
+  resave: true,
+  saveUninitialized: true
+}))
 // app.use(flash());
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   if(req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, PATCH, DELETE,');
     return res.status(200).json({});
